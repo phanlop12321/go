@@ -3,6 +3,7 @@ module github.com/phanlop12321/golang
 go 1.20
 
 require (
+	github.com/ehudthelefthand/course v0.0.0-20230509151513-365b3bda4b58
 	github.com/gin-gonic/gin v1.9.0
 	gorm.io/driver/postgres v1.5.2
 	gorm.io/gorm v1.25.1
