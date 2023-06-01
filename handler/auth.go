@@ -66,7 +66,7 @@ func GenerateToken(userID uint) (string, error) {
 			Issuer:    "course-api",
 		},
 	}
-	claim := jwt.NewWithClaims(jwt.SigningMethodES256, payload)
+	claim := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
 	return claim.SignedString([]byte(secretKey))
 }
 
