@@ -22,13 +22,12 @@ func NewDB() (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = db.Migrator().AutoMigrate(
+	if err := db.Migrator().AutoMigrate(
 		&User{},
 		&Course{},
 		&Class{},
 		&ClassStudent{},
-	)
-	if err != nil {
+	); err != nil {
 		log.Fatal(err)
 	}
 	return &DB{db: db}, nil
