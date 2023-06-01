@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/phanlop12321/golang/db"
 )
 
 // type CourseJSON struct {
@@ -34,14 +35,14 @@ func main() {
 
 func listCourses(db *db.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		course, err := db.GetAllCourse()
+		courses, err := db.GetAllCourse()
 		if err != nil {
 			c.IndentedJSON(http.StatusInternalServerError, gin.H{
 				"message": "server error!",
 			})
 			return
 		}
-		c.IndentedJSON(http.StatusOK, course)
+		c.IndentedJSON(http.StatusOK, courses)
 	}
 }
 func getCourses(db *db.DB) gin.HandlerFunc {

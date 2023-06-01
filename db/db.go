@@ -42,7 +42,7 @@ func (db *DB) CreateCourse(c model.Course) error {
 
 func (db *DB) GetCourse(id uint) (*model.Course, error) {
 	var course Course
-	if err := db.db.First(&course, 1).Error; err != nil {
+	if err := db.db.First(&course, id).Error; err != nil {
 		return nil, err
 	}
 	return &model.Course{
@@ -52,7 +52,7 @@ func (db *DB) GetCourse(id uint) (*model.Course, error) {
 	}, nil
 }
 
-func (db *DB) GetAllCourse(id uint) ([]model.Course, error) {
+func (db *DB) GetAllCourse() ([]model.Course, error) {
 	var courses []Course
 	if err := db.db.First(&courses, 1).Error; err != nil {
 		return nil, err
