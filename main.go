@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/phanlop12321/golang/db"
 	"github.com/phanlop12321/golang/handler"
+	"github.com/phanlop12321/golang/middleware"
 )
 
 // type CourseJSON struct {
@@ -24,14 +25,21 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// if err := db.Reset(); err != nil {
+	// 	log.Fatal(err)
+	// }
+	if err := db.AutoMigrate(); err != nil {
+		log.Fatal(err)
+	}
 	r := gin.Default()
 
 	r.GET("/courses", handler.ListCourses(db))
 	r.GET("/courses/:id", handler.GetCourses(db))
 	r.POST("/courses", handler.CreateCourses(db))
 	r.POST("/classes", handler.CreateClasses(db))
-	r.POST("/enroll", handler.EnrollClass(db))
+	r.POST("/enroll", middleware.RequireUser(db), handler.EnrollClass(db))
 	r.POST("/register", handler.Register(db))
+	r.POST("/login", handler.Login(db))
 
 	r.Run(":8080")
 }
